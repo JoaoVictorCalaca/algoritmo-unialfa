@@ -1,91 +1,96 @@
-alunos = []
+filmes = []
 
-def cadastrar_aluno():
-    nome = input("Digite o nome do aluno: ")
-    nota1 = float(input("Digite a primeira nota: "))
-    nota2 = float(input("Digite a segunda nota: "))
+def cadastrar_filme():
+    nome = input("Digite o nome do filme: ")
+    genero = input("Digite o gênero do filme: ")
+    nota = float(input("Digite a nota do filme (0 a 10): "))
 
-    media = (nota1 + nota2) / 2
-
-    aluno = {
+    filme = {
         "nome": nome,
-        "media": media
+        "genero": genero,
+        "nota": nota
     }
 
-    alunos.append(aluno)
+    filmes.append(filme)
 
-    print(f"\nAluno {nome} cadastrado com sucesso!")
-    print(f"Média final: {media:.2f}\n")
+    print(f"\nFilme '{nome}' cadastrado com sucesso!")
+    print(f"Nota registrada: {nota:.1f}\n")
 
-def listar_alunos():
-    if len(alunos) == 0:
-        print("\nNenhum aluno cadastrado.\n")
+def listar_filmes():
+    if len(filmes) == 0:
+        print("\nNenhum filme cadastrado.\n")
     else:
-        print("\n===== LISTA DE ALUNOS =====")
-        for i, aluno in enumerate(alunos):
-            print(f"{i+1} - {aluno['nome']} | Média: {aluno['media']:.2f}")
+        print("\n===== LISTA DE FILMES =====")
+
+        for i, filme in enumerate(filmes):
+            print(f"{i+1} - {filme['nome']} | Gênero: {filme['genero']} | Nota: {filme['nota']}")
+
         print()
 
-
-def verificar_aprovacao():
-    nome = input("Digite o nome do aluno: ")
+def classificar_filme():
+    nome = input("Digite o nome do filme: ")
 
     encontrado = False
 
-    for aluno in alunos:
-        if aluno["nome"].lower() == nome.lower():
+    for filme in filmes:
+        if filme["nome"].lower() == nome.lower():
 
-            if aluno["media"] >= 6:
-                print(f"\n{aluno['nome']} foi APROVADO!\n")
-            elif aluno["media"] >= 4:
-                print(f"\n{aluno['nome']} está de RECUPERAÇÃO.\n")
+            if filme["nota"] >= 8:
+                print(f"\n{filme['nome']} é um FILMAÇO!\n")
+
+            elif filme["nota"] >= 6:
+                print(f"\n{filme['nome']} é um filme BOM\n")
+
+            elif filme["nota"] >= 4:
+                print(f"\n{filme['nome']} é um filme MEDIANO\n")
+
             else:
-                print(f"\n{aluno['nome']} foi REPROVADO.\n")
+                print(f"\n{filme['nome']} é um filme RUIM\n")
 
             encontrado = True
 
     if not encontrado:
-        print("\nAluno não encontrado.\n")
+        print("\nFilme não encontrado.\n")
 
 
-def media_geral():
-    if len(alunos) == 0:
-        print("\nNenhum aluno cadastrado.\n")
+def media_notas():
+    if len(filmes) == 0:
+        print("\nNenhum filme cadastrado.\n")
+
     else:
         soma = 0
 
-        for aluno in alunos:
-            soma += aluno["media"]
+        for filme in filmes:
+            soma += filme["nota"]
 
-        media = soma / len(alunos)
+        media = soma / len(filmes)
 
-        print(f"\nA média geral da turma é: {media:.2f}\n")
-
+        print(f"\nA média das notas dos filmes é: {media:.2f}\n")
 
 opcao = 0
 
 while opcao != 5:
 
-    print("===== SISTEMA ESCOLAR =====")
-    print("1 - Cadastrar aluno")
-    print("2 - Listar alunos")
-    print("3 - Verificar aprovação")
-    print("4 - Média geral da turma")
+    print("===== SISTEMA DE FILMES =====")
+    print("1 - Cadastrar filme")
+    print("2 - Listar filmes")
+    print("3 - Classificar filme")
+    print("4 - Média das notas")
     print("5 - Sair")
 
     opcao = int(input("Escolha uma opção: "))
 
     if opcao == 1:
-        cadastrar_aluno()
+        cadastrar_filme()
 
     elif opcao == 2:
-        listar_alunos()
+        listar_filmes()
 
     elif opcao == 3:
-        verificar_aprovacao()
+        classificar_filme()
 
     elif opcao == 4:
-        media_geral()
+        media_notas()
 
     elif opcao == 5:
         print("\nEncerrando o sistema...")
